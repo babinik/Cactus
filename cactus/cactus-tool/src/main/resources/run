@@ -1,0 +1,4 @@
+1) java -jar cactus-tool-0.1-jar-with-dependencies.jar -d /home/nikolai/Desktop/cactus-test
+
+2) java -jar cactus-tool-0.1-jar-with-dependencies.jar -d /home/nikolai/Desktop/cactus-test -m DEBUG
+Runs the debug mode.

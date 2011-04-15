@@ -1,0 +1,16 @@
+<cactus>		
+	<needles>		
+		<needle>
+			<output>ext.js</output>
+			<files>
+				<file>https://ajax.googleapis.com/ajax/libs/ext-core/3.1.0/ext-core.js</file>
+			</files>	
+		</needle>
+		<needle>
+			<output>jquery.js</output>
+			<files>
+				<file>https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js</file>
+			</files>
+		</needle>
+	</needles>
+</cactus>
