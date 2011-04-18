@@ -48,8 +48,8 @@
                 <goals>
                   <goal>assembly</goal>
                 </goals>
-            </execution>
-        </executions>			
+              </execution>
+        	</executions>			
 		</plugin>
 		
 	  </plugins>

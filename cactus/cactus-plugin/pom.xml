@@ -13,6 +13,37 @@
     <version>0.1</version>
   </parent>
   
+ <build>
+    <pluginManagement>
+      <plugins>
+        
+		<plugin>
+		  <artifactId>maven-assembly-plugin</artifactId>
+		    <configuration>
+			  <descriptorRefs>
+			    <descriptorRef>jar-with-dependencies</descriptorRef>
+			  </descriptorRefs>
+              <archive>
+                <manifest>
+                  <mainClass>jartool.CactusUtility</mainClass>
+                </manifest>
+              </archive>			  
+			</configuration>
+            <executions>
+              <execution>
+                <id>make-assembly</id> 
+                <phase>package</phase>
+                <goals>
+                  <goal>assembly</goal>
+                </goals>
+              </execution>
+        	</executions>			
+		</plugin>
+		
+	  </plugins>
+    </pluginManagement>
+  </build>  
+  
   <dependencies>
 	<dependency>
 	  <groupId>org.apache.maven</groupId>
