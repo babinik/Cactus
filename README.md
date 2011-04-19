@@ -6,10 +6,9 @@ Cactus Obfuscator
 
 Cactus is a java multi-module application dedicated to process and obfuscate JavaScript and Css code.
 
-It includes:
-1. maven plugin
-
-2. console tool
+It includes:  
+1. Maven plugin;
+2. Console tool.
 
 Cactus can be used as a maven plugin inside java projects being managed by maven as well as standalone CLI utility for js/css obfuscation.   
 
@@ -22,24 +21,18 @@ Having *maven* installed and configured we can go to **cactus-plugin** installat
 
 1. Fetching source code and installing.
 
-	* clone the cactus repo, open terminal/CLI and run:
-
-		`git clone git@github.com:nbabinski/Cactus.git`
-	
-		`cd Cactus`
-	
-	* install:
-
+	* clone the cactus repo, open terminal/CLI and run:      
+		`git clone git@github.com:nbabinski/Cactus.git`     
+		`cd Cactus`     	
+	* install:     
 		`mvn install` 
 
 2. Using already compiled cactus-plugin.jar.
 
-* download cactus-plugin.jar
-* the open terminal/CLI and run the following maven command:
-
-  `mvn install:install-file -Dfile=DOWNLOAD_FOLDER/cactus-plugin.jar -DgroupId=com.cactus -DartifactId=cactus-plugin -Dpackaging=maven-plugin -Dversion=0.1`
-  
-  where DOWNLOAD_FOLDER stands for your download folder, where cactus-plugin.jar file was downloaded. 
+	* download cactus-plugin.jar
+	* the open terminal/CLI and run the following maven command:  
+  		`mvn install:install-file -Dfile=DOWNLOAD_FOLDER/cactus-plugin.jar -DgroupId=com.cactus -DartifactId=cactus-plugin -Dpackaging=maven-plugin -Dversion=0.1`    
+  	where DOWNLOAD_FOLDER stands for your download folder, where cactus-plugin.jar file was downloaded. 
   
 If all is OK and you see:
  
