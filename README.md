@@ -15,7 +15,6 @@ Cactus can be used as a maven plugin inside java projects being managed by maven
 
 ## 1. Maven plugin
 
-
 If you haven't [maven](http://maven.apache.org/ "apache maven") installed please [download](http://maven.apache.org/download.html) and 
 [install](http://maven.apache.org/download.html#Installation) it first.
 
@@ -23,15 +22,15 @@ Having *maven* installed and configured we can go to **cactus-plugin** installat
 
 1. Fetching source code and installing.
 
-* clone the cactus repo, open terminal/CLI and run:
+	* clone the cactus repo, open terminal/CLI and run:
 
-	`git clone git@github.com:nbabinski/Cactus.git`
+		`git clone git@github.com:nbabinski/Cactus.git`
 	
-	`cd Cactus`
+		`cd Cactus`
 	
-* install:
+	* install:
 
-	`mvn install` 
+		`mvn install` 
 
 2. Using already compiled cactus-plugin.jar.
 
