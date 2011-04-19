@@ -1,13 +1,13 @@
 Cactus Obfuscator
 =================
 
-### version 0.1
+### version 0.1 
 
 
-Cactus is a java multi-module application dedicated to process and obfuscate JavaScript and Css code.
+##### Cactus is a java multi-module application dedicated to process and obfuscate JavaScript and Css code.
 
 It includes:  
-1. Maven plugin;
+1. Maven plugin;  
 2. Console tool.
 
 Cactus can be used as a maven plugin inside java projects being managed by maven as well as standalone CLI utility for js/css obfuscation.   
@@ -44,4 +44,4 @@ If all is OK and you see:
 	
 string *BUILD SUCCESS* means cactus plugin was successfully installed.
   
-Congratulations, now you have it installed.
+Congratulations, now you have cactus-plugin installed.
