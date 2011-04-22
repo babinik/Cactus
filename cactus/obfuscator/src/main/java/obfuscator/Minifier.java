@@ -84,10 +84,10 @@ public class Minifier {
 		try {			
 			Reader in = new InputStreamReader(data);
 			
-			JavaScriptCompressor compressor = new JavaScriptCompressor(in,
-				new ErrorReporter() {
+			JavaScriptCompressor compressor = new JavaScriptCompressor(in, new ErrorReporter() {
 					public void warning(String message, String sourceName,
-							int line, String lineSource, int lineOffset) {
+										int line, String lineSource, int lineOffset) 
+					{
 						if (line < 0) {
 							System.err.println("\n[WARNING] " + message);
 						} else {
@@ -97,11 +97,12 @@ public class Minifier {
 					}
 		
 					public void error(String message, String sourceName,
-							int line, String lineSource, int lineOffset) {
+										int line, String lineSource, int lineOffset) 
+					{
 						if (line < 0) {
 							System.err.println("\n[ERROR] " + message);
 						} else {
-							System.err.println("\n[ERROR] " + line + ':'
+							System.err.println("\n[ERROR] source line: " + lineSource + "\n" + line + ':'
 									+ lineOffset + ':' + message);
 						}
 					}

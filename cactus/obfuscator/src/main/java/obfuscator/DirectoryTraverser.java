@@ -83,7 +83,7 @@ public class DirectoryTraverser {
 		String content = Minifier.concatenate(directory, fileNames);		
 		
 		if (!content.isEmpty()) {
-			if (!mode.equals("DEBUG")) {				
+			if (!mode.equals("DEBUG")) {			
 				content = Minifier.minify(new ByteArrayInputStream(content.getBytes("UTF-8")));
 			}
 			Writer w = new FileWriter(needleFile);

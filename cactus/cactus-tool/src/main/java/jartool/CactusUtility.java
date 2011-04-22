@@ -12,7 +12,7 @@ import org.apache.maven.plugin.logging.SystemStreamLog;
 public class CactusUtility {
 
 	private Log log;
-        
+    
     /**
      * Location of the JavaScript sources.
      */
@@ -23,23 +23,29 @@ public class CactusUtility {
 	 */
 	private String mode = "PRODUCTION";
 	
+	private String outputDirectory;
+	
 	public static void main(String[] args) throws MojoExecutionException {	
-		
 		CactusUtility tool = new CactusUtility();
-		
-		if (args.length > 0) {
-			if (args.length == 4) {
-				if (args[0].equalsIgnoreCase("-d")) {
-					tool.jsBaseDirectory = new File(args[1]);
-					tool.mode = args[3];
+
+		if (args.length > 0) {			
+			for (int i = 0; i < args.length; i = i + 2) {
+				
+				if (args[i].equalsIgnoreCase("-d")) {
+					tool.jsBaseDirectory = new File(args[i + 1]);
+					continue;
 				}
-			} else if (args.length == 2) {
-				if (args[0].equalsIgnoreCase("-d")) {
-					tool.jsBaseDirectory = new File(args[1]);
-				} else if (args[0].equalsIgnoreCase("-m")) {
-					tool.mode = args[1];
+				
+				if (args[i].equalsIgnoreCase("-m")) {
+					tool.mode = args[i + 1];
+					continue;
 				}
-			}			
+				
+				if (args[i].equalsIgnoreCase("-o")) {
+					tool.outputDirectory = args[i + 1]; 
+					MojoData.obfuscate.put("outputDirectory", new File(tool.jsBaseDirectory, tool.outputDirectory));
+				}
+			}	
 		}
 		
 		Log log = tool.getLog();
