@@ -132,6 +132,7 @@ cactus.xml:
 	</cactus>
 
 The above is example of simple cactus configuration file which contains 2 outputs (needle): _ext-3.1.0.js_ and _jquery-1.5.2.js_.
+
 After running:
 	mkdir cactus-test
 	cd cactus-test
@@ -139,9 +140,10 @@ After running:
 	java -jar cactus-tool.jar
 will be gotten all files and created two output needles.
 
-*<file>...</file>* tag accepts URLs, folder paths, file names
+*&lt;file&gt;* tag accepts URLs, folder paths and file names.
 
-All folders should be relative from the folder where cactus.xml file is. For example we have the following structure:
+All folders should be relative from the folder where cactus.xml file is. 
+For example we have the following folders structure:   
 
 	|-root
 	|--batch    
@@ -175,11 +177,12 @@ And the following cactus.xml file:
 	</cactus>
 	
 Running the tool from root/batch folder    
+
 	java -jar cactus-tool.jar -d ../webapp/js -o cache
 
 We get _test.js_ file inside root/webappjs/cache folder, which has boo.js, all files js from utils and utils/parser/xmlparser.js file obfuscated.
 
-The sequence of <file> tags is important it reflects on the order of file's content in the output needle file.
+The sequence of *&lt;file&gt;* tags is important it reflects on the order of file's content in the output needle file.
 	
 	
    
