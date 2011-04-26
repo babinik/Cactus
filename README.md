@@ -133,11 +133,13 @@ cactus.xml:
 
 The above is example of simple cactus configuration file which contains 2 outputs (needle): _ext-3.1.0.js_ and _jquery-1.5.2.js_.
 
-After running:
+After running:    
+	
 	mkdir cactus-test
 	cd cactus-test
 	//copy cactus.xml and cactus-tool.jar in cactus-test folder 
 	java -jar cactus-tool.jar
+	
 will be gotten all files and created two output needles.
 
 *&lt;file&gt;* tag accepts URLs, folder paths and file names.
