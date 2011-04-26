@@ -91,7 +91,7 @@ Cactus console tool have the same purpose as cactus-plugin - obfuscate js files.
 Here we don't need to use maven. All we need is jvm (Java Virtual Machine).
 
 How to run it:    
-1. create cactus.xml configuration file
+1. create cactus.xml configuration file    
 2. run cactus-tool:
     
 	java -jar cactus-tool.jar
@@ -108,3 +108,78 @@ But supports the following parameters:
 ## 3. Configuration file
 
 For version 0.1 cactus is configured using _xml_ based file.
+
+cactus.xml:    
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<cactus>
+		<needles>		
+			<needle>
+				<output>ext-3.1.0.js</output>
+				<files>
+					<file>https://ajax.googleapis.com/ajax/libs/ext-core/3.1.0/ext-core-debug.js</file>
+					...
+				</files>
+			</needle>
+			<needle>
+				<output>jquery-1.5.2.js</output>
+				<files>
+					<file>https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.js</file>
+					...
+				</files>
+			</needle>
+		</needles>
+	</cactus>
+
+The above is example of simple cactus configuration file which contains 2 outputs (needle): _ext-3.1.0.js_ and _jquery-1.5.2.js_.
+After running:
+	mkdir cactus-test
+	cd cactus-test
+	//copy cactus.xml and cactus-tool.jar in cactus-test folder 
+	java -jar cactus-tool.jar
+will be gotten all files and created two output needles.
+
+*<file>...</file>* tag accepts URLs, folder paths, file names
+
+All folders should be relative from the folder where cactus.xml file is. For example we have the following structure:
+
+	|-root
+	|--batch    
+	|  | - cactus-tool.jar  
+	|--webapp     
+	|----js    
+	|   |--cactus.xml
+   	|   |--boo.js    
+	|   |--foo.js
+	|   |--utils
+	|   |  |--array.js
+	|   |  |--string.js
+	|   |  |--parser
+	|   |  |  |--xmlparser.js
+	|   |--cache
+
+And the following cactus.xml file:
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<cactus>
+		<needles>		
+			<needle>
+				<output>test.js</output>
+				<files>
+					<file>boo.js</file>
+					<file>utils</file> <!-- get all js files from utils folder-->
+					<file>utils/parser/xmlparser.js</file>
+				</files>
+			</needle>
+		</needles>
+	</cactus>
+	
+Running the tool from root/batch folder    
+	java -jar cactus-tool.jar -d ../webapp/js -o cache
+
+We get _test.js_ file inside root/webappjs/cache folder, which has boo.js, all files js from utils and utils/parser/xmlparser.js file obfuscated.
+
+The sequence of <file> tags is important it reflects on the order of file's content in the output needle file.
+	
+	
+   
