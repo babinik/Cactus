@@ -1,8 +1,7 @@
 Cactus Obfuscator
 =================
 
-### version 0.1 
-
+### version 0.1
 
 ##### Cactus is a java multi-module application dedicated to process and obfuscate JavaScript and Css code.
 
@@ -74,19 +73,19 @@ Now we can configure your pom.xml file to use cactus plugin:
 		</plugins>        
 	</build>
 
-Configuration includes:
-baseDirectory   - _(optional)_ Defaults ${project.basedir}
-jsBaseDirectory - _(required)_ Relative path from baseDirectory to the JavaScript sources and where is cactus.xml configuration file.
-outputDirectory	- _(optional)_ Relative path from jsBaseDirectory to output directory for obfuscated/processed files. Defaults to the jsBaseDirectory. Directory should be existed.				
-mode            - _(optional)_ Mode PRODUCTION/DEBUG. Defaults to PRODUCTION, means it obfuscates all files. In DEBUG mode files only glued but aren't obfuscated.
+Configuration includes:    
+baseDirectory   - _(optional)_ Defaults ${project.basedir}    
+jsBaseDirectory - _(required)_ Relative path from baseDirectory to the JavaScript sources and where is cactus.xml configuration file.    
+outputDirectory	- _(optional)_ Relative path from jsBaseDirectory to output directory for obfuscated/processed files. Defaults to the jsBaseDirectory. Directory should be existed.    				
+mode            - _(optional)_ Mode PRODUCTION/DEBUG. Defaults to PRODUCTION, means it obfuscates all files. In DEBUG mode files only glued but aren't obfuscated.    
 
-From this point you can try _mvn package_ to pack your project.
-
+From this point you can try _mvn package_ to pack your project.    
 Also cactus plugin can be used without project, all we need to create cactus.xml configuration file and being in the same folder (where cactus.xml is) run:
 
 	mvn com.cactus:cactus-plugin:obfuscate
 
 ==========================================
 
+## 1. Console tool
 
  
