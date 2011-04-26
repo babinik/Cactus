@@ -74,18 +74,31 @@ Now we can configure your pom.xml file to use cactus plugin:
 	</build>
 
 Configuration includes:    
-baseDirectory   - _(optional)_ Defaults ${project.basedir}    
-jsBaseDirectory - _(required)_ Relative path from baseDirectory to the JavaScript sources and where is cactus.xml configuration file.    
-outputDirectory	- _(optional)_ Relative path from jsBaseDirectory to output directory for obfuscated/processed files. Defaults to the jsBaseDirectory. Directory should be existed.    				
-mode            - _(optional)_ Mode PRODUCTION/DEBUG. Defaults to PRODUCTION, means it obfuscates all files. In DEBUG mode files only glued but aren't obfuscated.    
+*baseDirectory*   -  _(optional)_ Defaults ${project.basedir}    
+*jsBaseDirectory* -  _(required)_ Relative path from baseDirectory to the JavaScript sources and where is cactus.xml configuration file.    
+*outputDirectory* -  _(optional)_ Relative path from jsBaseDirectory to output directory for obfuscated/processed files. Defaults to the jsBaseDirectory. Directory should be existed.    				
+*mode*            -  _(optional)_ Mode PRODUCTION/DEBUG. Defaults to PRODUCTION, means it obfuscates all files. In DEBUG mode files only glued but aren't obfuscated.    
 
 From this point you can try _mvn package_ to pack your project.    
 Also cactus plugin can be used without project, all we need to create cactus.xml configuration file and being in the same folder (where cactus.xml is) run:
 
 	mvn com.cactus:cactus-plugin:obfuscate
 
-==========================================
-
 ## 1. Console tool
 
- 
+Cactus console tool have the same purpose as cactus-plugin - obfuscate js files.
+Here we don't need to use maven. All we need is jvm (Java Virtual Machine).
+
+How to run it:
+* create cactus.xml configuration file
+* run cactus-tool
+	java -jar cactus-tool.jar
+
+By default tool doesn't need additional parameters if it is run from the same folder where cactus.xml file is.
+    
+But supports the following parameters:    
+*-d* - _(optional)_ The path to folder contains cactus.xml file. All files in cactus.xml are specified with relative path from this folder. If source directory wasn't specified the tool tries to get cactus.xml from the current working directory.                 
+*-o* - _(optional)_ Relative path to destination/output folder. If output directory wasn't specified all output will be going to -d (source directory). _This parameter should be going after -d parameter (if -d is used)_ 	 
+*-m* - _(optional)_ The mode: PRODUCTION/DEBUG. Default mode is  PRODUCTION - obfuscation is ON.    
+
+	java -jar cactus-tool.jar -d ../web/js -o cache
