@@ -9,6 +9,7 @@ Cactus Obfuscator
 ####Contents:  
 ####1. Maven plugin 
 ####2. Console tool
+####3. Configuration file
 
 Cactus can be used as a maven plugin inside java projects being managed by maven as well as standalone CLI utility for js/css obfuscation.   
 
@@ -84,14 +85,15 @@ Also cactus plugin can be used without project, all we need to create cactus.xml
 
 	mvn com.cactus:cactus-plugin:obfuscate
 
-## 1. Console tool
+## 2. Console tool
 
 Cactus console tool have the same purpose as cactus-plugin - obfuscate js files.
 Here we don't need to use maven. All we need is jvm (Java Virtual Machine).
 
-How to run it:
-* create cactus.xml configuration file
-* run cactus-tool
+How to run it:    
+1. create cactus.xml configuration file
+2. run cactus-tool:
+    
 	java -jar cactus-tool.jar
 
 By default tool doesn't need additional parameters if it is run from the same folder where cactus.xml file is.
@@ -102,3 +104,7 @@ But supports the following parameters:
 *-m* - _(optional)_ The mode: PRODUCTION/DEBUG. Default mode is  PRODUCTION - obfuscation is ON.    
 
 	java -jar cactus-tool.jar -d ../web/js -o cache
+	
+## 3. Configuration file
+
+For version 0.1 cactus is configured using _xml_ based file.
