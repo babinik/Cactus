@@ -2,6 +2,7 @@ Cactus Obfuscator
 =================
 
 ### version 0.1
+version 0.1 handles only js obfuscation 
 
 ##### Cactus is a java multi-module application dedicated to process and obfuscate JavaScript and Css code.
 
@@ -118,14 +119,12 @@ cactus.xml:
 				<output>ext-3.1.0.js</output>
 				<files>
 					<file>https://ajax.googleapis.com/ajax/libs/ext-core/3.1.0/ext-core-debug.js</file>
-					...
 				</files>
 			</needle>
 			<needle>
 				<output>jquery-1.5.2.js</output>
 				<files>
 					<file>https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.js</file>
-					...
 				</files>
 			</needle>
 		</needles>
