@@ -6,10 +6,10 @@ version 0.1 handles only js obfuscation
 
 ##### Cactus is a java multi-module application dedicated to process and obfuscate JavaScript and Css code.
 
-Cactus uses:
-*[Apache Maven](http://maven.apache.org/) - plugin creation/integration  
-*[YUI Compressor](http://http://developer.yahoo.com/yui/compressor/ "YUI Compressor") - js/css files obfuscation
-*[Simple XML](http://simple.sourceforge.net/) - XML mapping/(de)serialization
+Cactus uses:    
+* [Apache Maven](http://maven.apache.org/) - plugin creation/integration  
+* [YUI Compressor](http://http://developer.yahoo.com/yui/compressor/ "YUI Compressor") - js/css files obfuscation
+* [Simple XML](http://simple.sourceforge.net/) - XML mapping/(de)serialization
 
 ####Contents:  
 ####1. Maven plugin 
