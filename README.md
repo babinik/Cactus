@@ -2,7 +2,6 @@ Cactus Obfuscator
 =================
 
 ### version 0.1
-version 0.1 handles only js obfuscation 
 
 ##### Cactus is a java multi-module application dedicated to process and obfuscate JavaScript and Css code.
 
@@ -81,10 +80,11 @@ Now we can configure your pom.xml file to use cactus plugin:
 	</build>
 
 Configuration includes:    
-*baseDirectory*   -  _(optional)_ Defaults ${project.basedir}    
-*jsBaseDirectory* -  _(required)_ Relative path from baseDirectory to the JavaScript sources and where is cactus.xml configuration file.    
-*outputDirectory* -  _(optional)_ Relative path from jsBaseDirectory to output directory for obfuscated/processed files. Defaults to the jsBaseDirectory. Directory should be existed.    				
-*mode*            -  _(optional)_ Mode PRODUCTION/DEBUG. Defaults to PRODUCTION, means it obfuscates all files. In DEBUG mode files only glued but aren't obfuscated.    
+*baseDirectory*    -  _(optional)_ Defaults ${project.basedir}    
+*jsBaseDirectory*  -  _(required)_ Relative path from baseDirectory to the JavaScript/Css sources.
+*confingDirectory* -  _(optional)_ Path to the folder where is cactus.xml configuration file, by default it is the same as jsBaseDirectory    
+*outputDirectory*  -  _(optional)_ Relative path from jsBaseDirectory to output directory for obfuscated/processed files. Defaults to the jsBaseDirectory. Directory should be existed.    				
+*mode*             -  _(optional)_ Mode PRODUCTION/DEBUG. Defaults to PRODUCTION, means it obfuscates all files. In DEBUG mode files only glued but aren't obfuscated.    
 
 From this point you can try _mvn package_ to pack your project.    
 Also cactus plugin can be used without project, all we need to create cactus.xml configuration file and being in the same folder (where cactus.xml is) run:
@@ -104,8 +104,9 @@ How to run it:
 
 By default tool doesn't need additional parameters if it is run from the same folder where cactus.xml file is.
     
-But supports the following parameters:    
-*-d* - _(optional)_ The path to folder contains cactus.xml file. All files in cactus.xml are specified with relative path from this folder. If source directory wasn't specified the tool tries to get cactus.xml from the current working directory.                 
+But supports the following parameters:
+*-c* - _(required)_ The path to folder contains cactus.xml file.    
+*-d* - _(optional)_ All files in cactus.xml are specified with relative path from -c folder. 
 *-o* - _(optional)_ Relative path to destination/output folder. If output directory wasn't specified all output will be going to -d (source directory). _This parameter should be going after -d parameter (if -d is used)_ 	 
 *-m* - _(optional)_ The mode: PRODUCTION/DEBUG. Default mode is  PRODUCTION - obfuscation is ON.    
 
@@ -119,36 +120,49 @@ cactus.xml:
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<cactus>
-		<needles>		
-			<needle>
-				<output>ext-3.1.0.js</output>
-				<files>
-					<file>https://ajax.googleapis.com/ajax/libs/ext-core/3.1.0/ext-core-debug.js</file>
-				</files>
-			</needle>
-			<needle>
-				<output>jquery-1.5.2.js</output>
-				<files>
-					<file>https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.js</file>
-				</files>
-			</needle>
-		</needles>
+		<js>
+			<needles>		
+				<needle>
+					<output>ext-3.1.0.js</output>
+					<files>
+						<file>https://ajax.googleapis.com/ajax/libs/ext-core/3.1.0/ext-core-debug.js</file>
+					</files>
+				</needle>
+				<needle>
+					<output>jquery-1.5.2.js</output>
+					<files>
+						<file>https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.js</file>
+					</files>
+				</needle>
+			</needles>
+		</js>
+
+		<css>
+			<needles>		
+				<needle>
+					<output>test.css</output>
+					<files>
+						<file>YOUR_CSS_FILE_HERE</file>
+					</files>
+				</needle>
+			</needles>		
+		</css>
 	</cactus>
 
-The above is example of simple cactus configuration file which contains 2 outputs (needle): _ext-3.1.0.js_ and _jquery-1.5.2.js_.
+The above is example of simple cactus configuration file which contains 3 outputs (needles): _ext-3.1.0.js_, _jquery-1.5.2.js_ and _test.css_
 
 After running:    
 	
 	mkdir cactus-test
 	cd cactus-test
 	//copy cactus.xml and cactus-tool.jar in cactus-test folder 
-	java -jar cactus-tool.jar
+	java -jar cactus-tool.jar -c PATH_TO_CACTUS_CONFIG_FOLDER
 	
 will be gotten all files and created two output needles.
 
 *&lt;file&gt;* tag accepts URLs, folder paths and file names.
 
-All folders should be relative from the folder where cactus.xml file is. 
+All folders should be relative from the folder BASE folder (-c). 
 For example we have the following folders structure:   
 
 	|-root
@@ -170,21 +184,24 @@ And the following cactus.xml file:
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<cactus>
-		<needles>		
-			<needle>
-				<output>test.js</output>
-				<files>
-					<file>boo.js</file>
-					<file>utils</file> <!-- get all js files from utils folder-->
-					<file>utils/parser/xmlparser.js</file>
-				</files>
-			</needle>
-		</needles>
+		<js>
+			<needles>		
+				<needle>
+					<output>test.js</output>
+					<files>
+						<file>boo.js</file>
+						<file>utils</file> <!-- get all js files from utils folder-->
+						<file>utils/parser/xmlparser.js</file>
+					</files>
+				</needle>
+			</needles>
+		</js>
 	</cactus>
 	
 Running the tool from root/batch folder    
 
-	java -jar cactus-tool.jar -d ../webapp/js -o cache
+	java -jar cactus-tool.jar -c ../webapp/js -d ../webapp/js -o cache
+Here we have cactus.xml configuration file in the js folder that is why -c and -d parameters are equal.
 
 We get _test.js_ file inside root/webappjs/cache folder, which has boo.js, all files js from utils and utils/parser/xmlparser.js file obfuscated.
 
