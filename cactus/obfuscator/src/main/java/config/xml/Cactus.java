@@ -1,48 +1,48 @@
 package config.xml;
 
-import java.util.List;
-
-import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 /**
  * @author Nikolai Babinski
  */
-@Root(name="cactus")
+@Root(name = "cactus")
 public class Cactus {
 
-	@ElementList(name="needles", required=false, entry="needle")
-	private List<CactusNeedle> needles;
-	
-//	@ElementList(name="exclude", entry="file", required=false)
-//	private Set<String> exclusions;
+	@Element(name="js", required=false)
+	private JavaScriptSection javaScript;
 
-	
+	@Element(name="css", required=false)
+	private CssSection css;
+
 	/**
-	 * @return the needles
+	 * @return the javaScript
 	 */
-	public List<CactusNeedle> getNeedles() {
-		return needles;
+	public JavaScriptSection getJavaScript() {
+		return javaScript;
 	}
 
 	/**
-	 * @param needles the needles to set
+	 * @param javaScript the javaScript to set
 	 */
-	public void setNeedles(List<CactusNeedle> needles) {
-		this.needles = needles;
+	public void setJavaScript(JavaScriptSection javaScript) {
+		this.javaScript = javaScript;
 	}
 
-//	/**
-//	 * @return the exclusions
-//	 */
-//	public Set<String> getExclusions() {
-//		return exclusions;
-//	}
-//
-//	/**
-//	 * @param exclusions the exclusions to set
-//	 */
-//	public void setExclusions(Set<String> exclusions) {
-//		this.exclusions = exclusions;
-//	}	
+	/**
+	 * @return the css
+	 */
+	public CssSection getCss() {
+		return css;
+	}
+
+	/**
+	 * @param css the css to set
+	 */
+	public void setCss(CssSection css) {
+		this.css = css;
+	}	
+
+	
+
 }

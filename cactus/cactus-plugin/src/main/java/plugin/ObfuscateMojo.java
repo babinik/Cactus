@@ -24,13 +24,18 @@ public class ObfuscateMojo extends AbstractMojo {
      * @required
      */
     private File baseDirectory;
-        
+
+    /**
+     * @parameter expression="${confingDirectory}"
+     */
+    private File confingDirectory;
+    
     /**
      * Location of the JavaScript sources.
      * 
      * @parameter expression="${jsBaseDirectory}" 
      */
-    private String jsBaseDirectory;
+    private String jsBaseDirectory;    
     
     /**
      * Output directory for needles files
@@ -59,8 +64,11 @@ public class ObfuscateMojo extends AbstractMojo {
 		MojoData.obfuscate.put("log", log);
 		MojoData.obfuscate.put("mode", mode);
 		
-		try {			
-			DirectoryTraverser.getInstance().processMainDirectory(jsBase);
+		try {
+			if (confingDirectory == null) {
+				confingDirectory = jsBase;
+			}
+			DirectoryTraverser.getInstance().processMainDirectory(jsBase, confingDirectory);
 		} catch (Exception e) {
 			throw new MojoExecutionException("JavaScript minification failed", e);
 		}
@@ -68,6 +76,10 @@ public class ObfuscateMojo extends AbstractMojo {
 		log.info("End files minification");
     }
 	
+	/**
+	 * Returns JavaScript base directory path.
+	 * @return js path 
+	 */
 	private File getJavaScriptBaseDir() {
 		File jsDir = baseDirectory;		
 		if (jsBaseDirectory != null) {

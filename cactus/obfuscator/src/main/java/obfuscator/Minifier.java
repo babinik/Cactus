@@ -15,6 +15,7 @@ import java.util.List;
 import org.mozilla.javascript.ErrorReporter;
 import org.mozilla.javascript.EvaluatorException;
 
+import com.yahoo.platform.yui.compressor.CssCompressor;
 import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 
 import utils.net.DataFetcher;
@@ -124,6 +125,21 @@ public class Minifier {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}			
+		
+		return minified;
+	}	
+	
+	public static String minifyCss(InputStream data) throws IOException {		
+		String minified = "";
+		
+		Reader in = new InputStreamReader(data);
+		
+		CssCompressor compressor = new CssCompressor(in);
+		
+		CharArrayWriter cw = new CharArrayWriter();             
+		compressor.compress(cw, -1);
+		minified = cw.toString();
+		cw.close();
 		
 		return minified;
 	}

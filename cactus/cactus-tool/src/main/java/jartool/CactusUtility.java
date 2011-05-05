@@ -16,7 +16,9 @@ public class CactusUtility {
     /**
      * Location of the JavaScript sources.
      */
-    private File jsBaseDirectory = new File(System.getProperty("user.dir"));
+    private File baseDirectory = new File(System.getProperty("user.dir"));
+    
+    private File configDirectory;
     	
 	/**
 	 * PRODUCTION/DEBUG
@@ -25,14 +27,20 @@ public class CactusUtility {
 	
 	private String outputDirectory;
 	
-	public static void main(String[] args) throws MojoExecutionException {	
+	public static void main(String[] args) throws MojoExecutionException {
+		
 		CactusUtility tool = new CactusUtility();
 
 		if (args.length > 0) {			
 			for (int i = 0; i < args.length; i = i + 2) {
 				
 				if (args[i].equalsIgnoreCase("-d")) {
-					tool.jsBaseDirectory = new File(args[i + 1]);
+					tool.baseDirectory = new File(args[i + 1]);
+					continue;
+				}
+				
+				if (args[i].equalsIgnoreCase("-c")) {
+					tool.configDirectory = new File(args[i + 1]);
 					continue;
 				}
 				
@@ -43,7 +51,7 @@ public class CactusUtility {
 				
 				if (args[i].equalsIgnoreCase("-o")) {
 					tool.outputDirectory = args[i + 1]; 
-					MojoData.obfuscate.put("outputDirectory", new File(tool.jsBaseDirectory, tool.outputDirectory));
+					MojoData.obfuscate.put("outputDirectory", new File(tool.baseDirectory, tool.outputDirectory));
 				}
 			}	
 		}
@@ -52,12 +60,12 @@ public class CactusUtility {
 		log.info("Start files minification");
 		log.info("mode: " + tool.mode);
 		
-		MojoData.obfuscate.put("jsBase", tool.jsBaseDirectory);		
+		MojoData.obfuscate.put("jsBase", tool.baseDirectory);		
 		MojoData.obfuscate.put("log", log);
 		MojoData.obfuscate.put("mode", tool.mode);
 		
 		try {			
-			DirectoryTraverser.getInstance().processMainDirectory(tool.jsBaseDirectory);
+			DirectoryTraverser.getInstance().processMainDirectory(tool.baseDirectory, tool.configDirectory);			
 		} catch (Exception e) {
 			throw new MojoExecutionException("JavaScript minification failed", e);
 		}
