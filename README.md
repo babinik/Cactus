@@ -102,9 +102,10 @@ How to run it:
     
 	java -jar cactus-tool.jar
 
-By default tool doesn't need additional parameters if it is run from the same folder where cactus.xml file is.
+By default tool requires only one paremeter -c the path to the folder which contains cactus.xml file.
     
-But supports the following parameters:
+But supports the following parameters:    
+
 *-c* - _(required)_ The path to folder contains cactus.xml file.    
 *-d* - _(optional)_ All files in cactus.xml are specified with relative path from -c folder. 
 *-o* - _(optional)_ Relative path to destination/output folder. If output directory wasn't specified all output will be going to -d (source directory). _This parameter should be going after -d parameter (if -d is used)_ 	 
