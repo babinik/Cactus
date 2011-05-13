@@ -1,5 +1,6 @@
 Cactus Obfuscator
 =================
+#### Open Source GPL 3.0 licence 
 
 ### version 0.1
 
