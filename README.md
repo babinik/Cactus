@@ -4,11 +4,13 @@ Cactus Obfuscator
 
 ### version 0.1
 
+###### In downloads _cactus-plugin.jar_ was built using maven 3 so to use it you need to have 3rd maven version but you can easily build source code using any maven version starting from 2 and it will be working. 
+
 ##### Cactus is a java multi-module application dedicated to process and obfuscate JavaScript and Css code.
 
 Cactus uses:
     
-* [Apache Maven](http://maven.apache.org/) - plugin(version 3.*) creation/integration  
+* [Apache Maven](http://maven.apache.org/) - plugin(versions from 2-3.*) creation/integration  
 * [YUI Compressor](http://http://developer.yahoo.com/yui/compressor/ "YUI Compressor") - js/css files obfuscation
 * [Simple XML](http://simple.sourceforge.net/) - XML mapping/(de)serialization
 
