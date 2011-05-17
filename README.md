@@ -8,7 +8,7 @@ Cactus Obfuscator
 
 Cactus uses:
     
-* [Apache Maven](http://maven.apache.org/) - plugin creation/integration  
+* [Apache Maven](http://maven.apache.org/) - plugin(version 3.*) creation/integration  
 * [YUI Compressor](http://http://developer.yahoo.com/yui/compressor/ "YUI Compressor") - js/css files obfuscation
 * [Simple XML](http://simple.sourceforge.net/) - XML mapping/(de)serialization
 
