@@ -1,24 +1,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>cactus-parent</artifactId>
-  <packaging>pom</packaging>	
-  <name>Cactus multi-module</name>
 
-  <parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>cactus-parent</artifactId>
+    <packaging>pom</packaging>
+    <name>Cactus multi-module</name>
+
+    <parent>
     <groupId>com.cactus</groupId>
     <artifactId>cactus</artifactId>
     <version>0.1</version>
-  </parent>
+    </parent>
 
 	
-  <modules>
+    <modules>
     <module>obfuscator</module>
     <module>cactus-plugin</module>
     <module>cactus-tool</module>
-  </modules>
+    </modules>
 	
-	<build>
+    <build>
 		<pluginManagement>
 			<plugins>
 				<plugin>
