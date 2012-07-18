@@ -14,9 +14,9 @@
 
 	
     <modules>
-    <module>obfuscator</module>
-    <module>cactus-plugin</module>
-    <module>cactus-tool</module>
+        <module>obfuscator</module>
+        <module>cactus-plugin</module>
+        <module>cactus-tool</module>
     </modules>
 	
     <build>
