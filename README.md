@@ -1,50 +1,31 @@
 Cactus Obfuscator
 =================
-#### Open Source GPL 3.0 licence 
+[MIT](http://opensource.org/licenses/MIT) license
 
-### version 0.1
+_version 0.1_ 
 
-##### In downloads _cactus-plugin.jar_ was built using maven 3 so to use it you need to have 3rd maven version but you can easily build source code using any maven version starting from 2 and it will be working.
- 
-
-#### Cactus is a java multi-module application dedicated to process and obfuscate JavaScript and Css code.
+Cactus is a simple java multi-module application dedicated to process and obfuscate JavaScript and Css code.
+It can be used as a maven plugin inside java projects being managed by maven as well as standalone CLI utility for js/css obfuscation.   
 
 Cactus uses:
     
-* [Apache Maven](http://maven.apache.org/) - plugin(versions from 2-3.*) creation/integration  
+* [Apache Maven](http://maven.apache.org/) - build/management tool
 * [YUI Compressor](http://http://developer.yahoo.com/yui/compressor/ "YUI Compressor") - js/css files obfuscation
 * [Simple XML](http://simple.sourceforge.net/) - XML mapping/(de)serialization
 
-####Contents:  
-####1. Maven plugin 
-####2. Console tool
-####3. Configuration file
-
-Cactus can be used as a maven plugin inside java projects being managed by maven as well as standalone CLI utility for js/css obfuscation.   
-
-## 1. Maven plugin
+#### Installation
 
 If you haven't [maven](http://maven.apache.org/ "apache maven") installed please [download](http://maven.apache.org/download.html) and 
 [install](http://maven.apache.org/download.html#Installation) it first.
 
-Having *maven* installed and configured we can go to **cactus-plugin** installation:
-
-1. Fetching source code and installing.
-
-	* clone the cactus repo, open terminal/CLI and run:      
-		`git clone git@github.com:nbabinski/Cactus.git`     
-		`cd Cactus`     	
-	* install:     
-		`mvn install` 
-
-2. Using already compiled cactus-plugin.jar.
-
-	* download cactus-plugin.jar
-	* the open terminal/CLI and run the following maven command:  
-  		`mvn install:install-file -Dfile=DOWNLOAD_FOLDER/cactus-plugin.jar -DgroupId=com.cactus -DartifactId=cactus-plugin -Dpackaging=maven-plugin -Dversion=0.1`    
-  	where DOWNLOAD_FOLDER stands for your download folder, where cactus-plugin.jar file was downloaded. 
+Having *maven* installed and configured we can go to **cactus-plugin** installation.
+- clone the cactus repo, open terminal/CLI and run:      
+	`git clone git@github.com:nbabinski/Cactus.git`     
+	`cd Cactus`     	
+- install:     
+	`mvn install` 
   
-If all is OK and you see:
+CLI output:
  
 	[INFO] BUILD SUCCESS
 	[INFO] ------------------------------------------------------------------------
@@ -52,9 +33,10 @@ If all is OK and you see:
 	[INFO] Finished at: Tue Apr 19 01:36:31 EEST 2011
 	[INFO] Final Memory: 2M/48M
 	
-string *BUILD SUCCESS* means cactus plugin was successfully installed.
-  
+*BUILD SUCCESS* means cactus plugin was successfully installed.  
 Congratulations, now you have cactus-plugin installed.
+
+#### Maven plugin
 
 Cactus plugin is executed at *process-sources* life-cycle phase.
 
@@ -84,21 +66,39 @@ Now we can configure your pom.xml file to use cactus plugin:
 	</build>
 
 Configuration includes:    
-*baseDirectory*    -  _(optional)_ Defaults ${project.basedir}    
-*jsBaseDirectory*  -  _(required)_ Relative path from baseDirectory to the JavaScript/Css sources.
-*confingDirectory* -  _(optional)_ Path to the folder where is cactus.xml configuration file, by default it is the same as jsBaseDirectory    
-*outputDirectory*  -  _(optional)_ Relative path from jsBaseDirectory to output directory for obfuscated/processed files. Defaults to the jsBaseDirectory. Directory should be existed.    				
-*mode*             -  _(optional)_ Mode PRODUCTION/DEBUG. Defaults to PRODUCTION, means it obfuscates all files. In DEBUG mode files only glued but aren't obfuscated.    
+`baseDirectory` _optional_ 
+Defaults `${project.basedir}`
 
-From this point you can try _mvn package_ to pack your project.    
-Also cactus plugin can be used without project, all we need to create cactus.xml configuration file and being in the same folder (where cactus.xml is) run:
+`jsBaseDirectory`  _required_ 
+Relative path from baseDirectory to the JavaScript/Css sources.
+
+`confingDirectory` _optional_ 
+Path to the folder where is cactus.xml configuration file, by default it is the same as jsBaseDirectory    
+
+`outputDirectory`  _optional_ 
+Relative path from jsBaseDirectory to output directory for obfuscated/processed files. Defaults to the jsBaseDirectory, the directory should exist.
+
+`mode` _optional_ 
+Mode PRODUCTION/DEBUG. Defaults to `PRODUCTION`, means it obfuscates all files. In `DEBUG` mode files only glued but aren't obfuscated.
+
+From this point you can try `mvn package` to pack your project.    
+
+Also cactus plugin can be used without project, all we need to create cactus.xml 
+configuration file and being in the same folder (where _cactus.xml_ is) run:
 
 	mvn com.cactus:cactus-plugin:obfuscate
 
-## 2. Console tool
 
-Cactus console tool have the same purpose as cactus-plugin - obfuscate js files.
-Here we don't need to use maven. All we need is jvm (Java Virtual Machine).
+#### Console tool
+
+Cactus console tool have the same purpose as cactus-plugin - obfuscate js/css files.
+Here we don't need to use maven. All we need is java installed.
+
+Before used tool, we need to build it:
+ - go to the cactus-tool module project_home_dir/cactus/cactus-tool
+ - run `mvn assembly:single` 
+
+Now you got the assembled cli tool under the module/target folder.
 
 How to run it:    
 1. create cactus.xml configuration file    
@@ -106,18 +106,26 @@ How to run it:
     
 	java -jar cactus-tool.jar
 
-By default tool requires only one paremeter -c the path to the folder which contains cactus.xml file.
+By default tool requires only one paremeter `-c` the path to the folder which contains cactus.xml file.
     
 But supports the following parameters:    
 
-*-c* - _(required)_ The path to folder contains cactus.xml file.    
-*-d* - _(optional)_ All files in cactus.xml are specified with relative path from -c folder. 
-*-o* - _(optional)_ Relative path to destination/output folder. If output directory wasn't specified all output will be going to -d (source directory). _This parameter should be going after -d parameter (if -d is used)_ 	 
-*-m* - _(optional)_ The mode: PRODUCTION/DEBUG. Default mode is  PRODUCTION - obfuscation is ON.    
+`-c` _required_ The path to folder contains cactus.xml file.    
+
+`-d` _optional_ All files in cactus.xml are specified with relative path from `-c` folder. 
+
+`-o` _optional_ Relative path to destination/output folder. If output directory wasn't specified 
+all output will be going to `-d` (source directory). 
+_This parameter should be going after `-d` parameter (if `-d` is used)_ 	 
+
+`-m` - _optional_ The mode: `PRODUCTION`/`DEBUG`. Default mode is  `PRODUCTION` - obfuscation is ON.
+In `DEBUG` mode files are glued in the configurated way.
+
+Example:
 
 	java -jar cactus-tool.jar -d ../web/js -o cache
 	
-## 3. Configuration file
+#### Configuration file
 
 For version 0.1 cactus is configured using _xml_ based file.
 
@@ -160,14 +168,16 @@ After running:
 	
 	mkdir cactus-test
 	cd cactus-test
-	//copy cactus.xml and cactus-tool.jar in cactus-test folder 
+	
+copy cactus.xml and cactus-tool.jar in cactus-test folder 
+
 	java -jar cactus-tool.jar -c PATH_TO_CACTUS_CONFIG_FOLDER
 	
 will be gotten all files and created two output needles.
 
-*&lt;file&gt;* tag accepts URLs, folder paths and file names.
+`file` tag accepts URLs, folder paths and file names.
 
-All folders should be relative from the folder BASE folder (-c). 
+All folders should be relative from the folder BASE folder (`-c`). 
 For example we have the following folders structure:   
 
 	|-root
@@ -206,11 +216,13 @@ And the following cactus.xml file:
 Running the tool from root/batch folder    
 
 	java -jar cactus-tool.jar -c ../webapp/js -d ../webapp/js -o cache
-Here we have cactus.xml configuration file in the js folder that is why -c and -d parameters are equal.
+	
+Here we have cactus.xml configuration file in the js folder that is why `-c` and `-d` parameters are equal.
 
-We get _test.js_ file inside root/webappjs/cache folder, which has boo.js, all files js from utils and utils/parser/xmlparser.js file obfuscated.
+We get _test.js_ file inside root/webappjs/cache folder, which has boo.js, 
+all files js from utils and utils/parser/xmlparser.js file obfuscated.
 
-The sequence of *&lt;file&gt;* tags is important it reflects on the order of file's content in the output needle file.
+The sequence of `file` tags is important it reflects on the order of file's content in the output needle's file.
 	
 	
    
