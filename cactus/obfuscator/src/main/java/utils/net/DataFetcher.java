@@ -6,12 +6,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 
-/**
- * @author Nikolai Babinski
- *
- */
-public class DataFetcher {	
-    	    
+public class DataFetcher {
+
+    private static final String userAgent = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 GTB7.0";
+
     protected URLConnection urlConnection;
     	    
     public URLConnection getUrlConnection() {
@@ -22,32 +20,24 @@ public class DataFetcher {
         this.urlConnection = urlConnection;
     }
 
-    /**
-     * @throws IOException
-     */
     public DataFetcher(String connectionUrl) throws IOException {
         URL url = new URL(connectionUrl);
         urlConnection = url.openConnection();        
         urlConnection.setDoOutput(true);
-        urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 GTB7.0");        
+        urlConnection.setRequestProperty("User-Agent", userAgent);
     }
     
     public DataFetcher(URL url) throws IOException {
     	urlConnection = url.openConnection();        
     	urlConnection.setDoOutput(true);
-    	urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 GTB7.0");        
+    	urlConnection.setRequestProperty("User-Agent", userAgent);
     }
     
-    /**
-     * Simple not general implementation 
-     * @return fetched data
-     * @throws IOException
-     */
-    public String fetchData() throws IOException { 
+    public String fetchData() throws IOException {
     	String newLine = System.getProperty("line.separator");	
-        Scanner in = new Scanner(urlConnection.getInputStream());
+        Scanner in = new Scanner(urlConnection.getInputStream(), "UTF-8");
         StringBuilder sb = new StringBuilder();
-        for (int n = 1; in.hasNextLine(); n++) {
+        while(in.hasNextLine()) {
             sb.append(in.nextLine() + newLine);
         }
         in.close();

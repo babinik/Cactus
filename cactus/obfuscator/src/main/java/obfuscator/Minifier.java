@@ -1,13 +1,6 @@
 package obfuscator;
 
-import java.io.BufferedReader;
-import java.io.CharArrayWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -21,7 +14,7 @@ import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 import utils.net.DataFetcher;
 
 
-public class Minifier {
+public abstract class Minifier {
 
 	public static String concatenate(File directory) throws IOException {
 		StringBuilder sb = new StringBuilder();		
@@ -52,7 +45,6 @@ public class Minifier {
 		return sb.toString();		
 	}
 	
-	
 	public static boolean isUrl(String path) {
 		try {
 			new URL(path);			
@@ -63,7 +55,7 @@ public class Minifier {
 	}
 
 	public static String getFileContext(File file) throws IOException {
-		BufferedReader rd = new BufferedReader(new FileReader(file));
+		BufferedReader rd = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 		StringBuilder sb = new StringBuilder();
 		String line;
 		while ((line = rd.readLine()) != null) {
@@ -79,68 +71,55 @@ public class Minifier {
 		return fetcher.fetchData() +  ("\n/*[  " + url + "  ]*/\n\n");
 	}
 	
-	public static String minify(InputStream data) {
-		String minified = "";
+	public static String minify(InputStreamReader in) {
+		String min = "";
 		
-		try {			
-			Reader in = new InputStreamReader(data);
-			
+		try {
 			JavaScriptCompressor compressor = new JavaScriptCompressor(in, new ErrorReporter() {
-					public void warning(String message, String sourceName,
-										int line, String lineSource, int lineOffset) 
-					{
-						if (line < 0) {
-							System.err.println("\n[WARNING] " + message);
-						} else {
-							System.err.println("\n[WARNING] " + line + ':'
-									+ lineOffset + ':' + message);
-						}
-					}
-		
-					public void error(String message, String sourceName,
-										int line, String lineSource, int lineOffset) 
-					{
-						if (line < 0) {
-							System.err.println("\n[ERROR] " + message);
-						} else {
-							System.err.println("\n[ERROR] source line: " + lineSource + "\n" + line + ':'
-									+ lineOffset + ':' + message);
-						}
-					}
-		
-					public EvaluatorException runtimeError(String message,
-							String sourceName, int line, String lineSource,
-							int lineOffset) {
-						error(message, sourceName, line, lineSource,
-								lineOffset);
-						return new EvaluatorException(message);
-					}
-				});
+                public void warning(String message, String sourceName, int line, String lineSource, int lineOffset) {
+                    if (line < 0) {
+                        System.err.println("\n[WARNING] " + message);
+                    } else {
+                        System.err.println("\n[WARNING] " + line + ':' + lineOffset + ':' + message);
+                    }
+                }
+
+                public void error(String message, String sourceName, int line, String lineSource, int lineOffset)
+                {
+                    if (line < 0) {
+                        System.err.println("\n[ERROR] " + message);
+                    } else {
+                        System.err.println("\n[ERROR] source line: " + lineSource + "\n" + line + ':' + lineOffset + ':' + message);
+                    }
+                }
+
+                public EvaluatorException runtimeError(
+                        String message, String sourceName, int line, String lineSource, int lineOffset
+                ) {
+                    error(message, sourceName, line, lineSource, lineOffset);
+                    return new EvaluatorException(message);
+                }
+            });
 			
 			CharArrayWriter cw = new CharArrayWriter();             
 			compressor.compress(cw, -1, true, false, false, true);
-			minified = cw.toString();
+			min = cw.toString();
 			cw.close();            
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}			
-		
-		return minified;
+		}
+
+		return min;
 	}	
 	
-	public static String minifyCss(InputStream data) throws IOException {		
-		String minified = "";
-		
-		Reader in = new InputStreamReader(data);
-		
+	public static String minifyCss(InputStreamReader in) throws IOException {
 		CssCompressor compressor = new CssCompressor(in);
-		
 		CharArrayWriter cw = new CharArrayWriter();             
 		compressor.compress(cw, -1);
-		minified = cw.toString();
+        String min = cw.toString();
 		cw.close();
 		
-		return minified;
+		return min;
 	}
 }
